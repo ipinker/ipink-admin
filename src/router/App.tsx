@@ -1,9 +1,9 @@
 /*
  * @Author: ipink
  * @Date: 2023-05-11 22:20:37
- * @LastEditors: 牛洪法 1242849166@qq.com
- * @LastEditTime: 2023-05-15 17:06:31
- * @FilePath: /admin/src/router/App.tsx
+ * @LastEditors: ipink 1242849166@qq.com
+ * @LastEditTime: 2023-05-15 21:58:49
+ * @FilePath: /ipink-admin/src/router/App.tsx
  * @Description: 描述
  */
 import type { RouteObject } from "react-router-dom"
@@ -11,6 +11,7 @@ import { useRoutes } from "react-router-dom"
 import routes from '~react-pages'
 import Layout from "@/layout"
 import Login from '@/pages/login'
+import { FC } from "react"
 
 const layoutRoutes = (routes: RouteObject[]): RouteObject[] => {
     const layouts: RouteObject[] = [] // layout内部组件
@@ -36,9 +37,8 @@ const newRoutes: RouteObject[] = [
         children: layoutRoutes(routes)
     }
 ];
-console.log(newRoutes)
 
-function App() {
+const App: FC = () => {
     return (
         <>
             {useRoutes(newRoutes)}

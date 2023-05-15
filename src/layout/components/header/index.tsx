@@ -1,9 +1,9 @@
 /*
  * @Author: ipink
  * @Date: 2023-05-14 10:46:56
- * @LastEditors: 牛洪法 1242849166@qq.com
- * @LastEditTime: 2023-05-15 12:49:06
- * @FilePath: /admin/src/layout/components/header/index.tsx
+ * @LastEditors: ipink 1242849166@qq.com
+ * @LastEditTime: 2023-05-15 21:55:23
+ * @FilePath: /ipink-admin/src/layout/components/header/index.tsx
  * @Description: 描述
  */
 import { useState, useEffect, FC } from 'react'
@@ -17,14 +17,14 @@ import {
 } from '@ant-design/icons'
 import { Icon } from '@iconify/react'
 import { useDispatch, useSelector } from 'react-redux'
-import { selectUserInfo, setUserInfo } from '@/store/modules/user'
+import { getUserInfo, setUserInfo } from '@/store/slices/userSlice'
 import {
-    selectTheme,
+    getTheme,
     setCollapsed as setCollapsedGlobal,
-    selectMenuMode,
+    getMenuMode,
     setTheme,
     setMenuMode
-} from '@/store/modules/public'
+} from '@/store/slices/publicSlice'
 import BreadcrumbComponent from "../breadcrumb"
 
 import classNames from 'classnames'
@@ -35,9 +35,9 @@ const { Header } = Layout;
 
 const HeaderComponent: FC = () => {
     const dispatch = useDispatch()
-    const theme = useSelector(selectTheme)
-    const userInfo = useSelector(selectUserInfo)
-    const menuMode = useSelector(selectMenuMode)
+    const theme = useSelector(getTheme)
+    const userInfo = useSelector(getUserInfo)
+    const menuMode = useSelector(getMenuMode)
     const history = useNavigate()
     const { username = '-' } = userInfo
     const firstWord = username.slice(0, 1)

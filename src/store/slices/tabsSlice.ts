@@ -1,10 +1,8 @@
-import type { TabPaneProps } from 'antd'
-import { createSlice } from '@reduxjs/toolkit'
 
-interface Tabs extends Omit<TabPaneProps, 'tab'> {
-    key: string;
-    label: React.ReactNode;
-}
+import { createSlice } from '@reduxjs/toolkit'
+import { RootState } from '..';
+import { Tabs } from '#/public';
+
 
 const tabsSlice = createSlice({
     name: 'tabs',
@@ -26,6 +24,7 @@ const tabsSlice = createSlice({
         },
         /** 设置选择 */
         setActiveKey: (state, action) => {
+            console.log(action.payload)
             state.activeKey = action.payload
         },
         /** 设置导航 */
@@ -36,6 +35,7 @@ const tabsSlice = createSlice({
         addTabs: (state, action) => {
             const { tabs } = state
             const { payload } = action
+            console.log(payload)
 
             // 判断是否存在相同的路由，不存在则累加
             const has = tabs.find(item => item.key === payload.key)
@@ -148,6 +148,9 @@ export const {
     closeRight,
     closeOther,
     closeAllTab
-} = tabsSlice.actions
+} = tabsSlice.actions;
+
+export const getTabs = (state: RootState) => state.tabs.tabs;
+export const getActiveKey = (state: RootState) => state.tabs.activeKey;
 
 export default tabsSlice.reducer

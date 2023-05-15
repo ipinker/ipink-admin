@@ -1,9 +1,9 @@
 /*
  * @Author: ipink
  * @Date: 2023-05-14 10:46:47
- * @LastEditors: 牛洪法 1242849166@qq.com
- * @LastEditTime: 2023-05-15 16:31:58
- * @FilePath: /admin/src/layout/components/menu/index.tsx
+ * @LastEditors: ipink 1242849166@qq.com
+ * @LastEditTime: 2023-05-15 22:49:53
+ * @FilePath: /ipink-admin/src/layout/components/menu/index.tsx
  * @Description: 描述
  */
 import { FC, ReactElement, useState } from 'react';
@@ -15,7 +15,7 @@ import type { MenuProps } from 'antd';
 import { Layout, Menu, theme as antdTheme } from 'antd';
 import { useSelector } from "react-redux";
 import logo from '@/assets/images/logo.png'
-import { menuModeType, selectCollapsed, selectMenuMode, selectTheme } from "@/store/modules/public";
+import { menuModeType, getCollapsed, getMenuMode, getTheme } from "@/store/slices/publicSlice";
 import './menu.module.less';
 import styles from './menu.module.less';
 import { isPhone } from '@/utils/is';
@@ -32,12 +32,12 @@ const items: MenuProps['items'] = isPhone() ?
 
 const MenuComponent: FC = () => {
     const { pathname } = useLocation();
-    console.log(pathname)
     const navigate = useNavigate();
-    const menuMode: menuModeType = useSelector(selectMenuMode);
-    const collapsed: boolean = useSelector(selectCollapsed);
-    const theme = useSelector(selectTheme)
-    const [current, setCurrent] = useState(pathname);const {
+    const menuMode: menuModeType = useSelector(getMenuMode);
+    const collapsed: boolean = useSelector(getCollapsed);
+    const theme = useSelector(getTheme)
+    const [current, setCurrent] = useState(pathname);
+    const {
         token: { colorBgContainer },
     } = antdTheme.useToken();
 

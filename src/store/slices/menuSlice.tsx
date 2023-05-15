@@ -1,20 +1,20 @@
+/*
+ * @Author: ipink
+ * @Date: 2023-05-13 22:09:44
+ * @LastEditors: ipink 1242849166@qq.com
+ * @LastEditTime: 2023-05-15 22:10:30
+ * @FilePath: /ipink-admin/src/store/slices/menuSlice.tsx
+ * @Description: 菜单 Menu
+ */
 import { createSlice } from '@reduxjs/toolkit'
 
 const menuSlice = createSlice({
     name: 'menu',
     initialState: {
-        isPhone: false,
-        isCollapsed: false,
         selectedKeys: 'dashboard', // 菜单选中值
         openKeys: ['Dashboard'], // 菜单展开项
     },
     reducers: {
-        toggleCollapsed: (state, action) => {
-            state.isCollapsed = !!action.payload
-        },
-        togglePhone: (state, action) => {
-            state.isPhone = !!action.payload
-        },
         setSelectedKeys: (state, action) => {
             state.selectedKeys = action.payload
         },
@@ -25,8 +25,6 @@ const menuSlice = createSlice({
 })
 
 export const {
-    toggleCollapsed,
-    togglePhone,
     setSelectedKeys,
     setOpenKeys
 } = menuSlice.actions

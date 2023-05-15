@@ -7,6 +7,7 @@ export type menuModeType = 'horizontal' | 'vertical';
 export const publicSlice = createSlice({
     name: 'public',
     initialState: {
+        isPhone: false,
         theme: 'light' as ThemeType, // 主题
         collapsed: false, // 菜单收纳状态, 用于垂直布局
         menuMode: 'horizontal' as menuModeType, // 菜单模式, 用于水平布局
@@ -15,6 +16,9 @@ export const publicSlice = createSlice({
         isRefreshPage: false // 重新加载页面
     },
     reducers: {
+        setIsPhone: (state, action) => {
+            state.isPhone = !!action.payload
+        },
         /** 设置主题 */
         setTheme: (state, action) => {
             state.theme = action.payload
@@ -41,6 +45,7 @@ export const publicSlice = createSlice({
 })
 
 export const {
+    setIsPhone,
     setTheme,
     setFullscreen,
     setRefresh,
@@ -49,10 +54,8 @@ export const {
     setMenuMode
 } = publicSlice.actions
 
-export const selectTheme = (state: RootState) => state.app.theme
-export const selectCollapsed = (state: RootState) => state.app.collapsed
-export const selectMenuMode = (state: RootState) => state.app.menuMode
-
-
+export const getTheme = (state: RootState) => state.app.theme
+export const getCollapsed = (state: RootState) => state.app.collapsed
+export const getMenuMode = (state: RootState) => state.app.menuMode
 
 export default publicSlice.reducer

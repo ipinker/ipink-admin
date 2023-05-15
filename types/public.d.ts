@@ -1,15 +1,15 @@
 /*
  * @Author: ipink
  * @Date: 2023-05-11 22:20:37
- * @LastEditors: 牛洪法 1242849166@qq.com
- * @LastEditTime: 2023-05-15 16:14:32
- * @FilePath: /admin/types/public.d.ts
+ * @LastEditors: ipink 1242849166@qq.com
+ * @LastEditTime: 2023-05-15 22:25:14
+ * @FilePath: /ipink-admin/types/public.d.ts
  * @Description: 描述
  */
 import type { SubMenuType } from 'antd/lib/menu/hooks/useItems'
 import type { ColumnsType } from 'antd/lib/table'
 import type { Dayjs } from 'dayjs'
-import type { MenuProps } from 'antd';
+import type { MenuProps, TabPaneProps } from 'antd';
 
 // 区间值
 type EventValue<T> = T | null
@@ -99,3 +99,8 @@ interface ReduxProps {
 type RefType = MutableRefObject<unknown> | ((instance: unknown) => void)
 
 type CommonObjectType<T = any> = Record<string, T>
+
+export interface Tabs extends Omit<TabPaneProps, 'tab'> {
+    key: string;
+    label: React.ReactNode;
+}

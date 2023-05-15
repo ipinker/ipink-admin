@@ -2,8 +2,8 @@
  * @Author: ipink
  * @Date: 2023-05-13 22:09:44
  * @LastEditors: ipink 1242849166@qq.com
- * @LastEditTime: 2023-05-14 13:32:10
- * @FilePath: /react-admin-main/src/store/modules/user.ts
+ * @LastEditTime: 2023-05-15 21:54:33
+ * @FilePath: /ipink-admin/src/store/slices/userSlice.ts
  * @Description: 描述
  */
 import { createSlice } from '@reduxjs/toolkit'
@@ -50,8 +50,8 @@ export const {
 } = userSlice.actions;
 
 
-export const selectUserInfo = (state: RootState) => state.user.userInfo;
-export const selectPermissions = (state: RootState) => state.user.permissions;
+export const getUserInfo = (state: RootState) => state.user.userInfo;
+export const getPermissions = (state: RootState) => state.user.permissions;
 
 
 export default userSlice.reducer

@@ -1,9 +1,9 @@
 /*
  * @Author: 牛洪法
  * @Date: 2023-05-15 09:38:12
- * @LastEditors: 牛洪法 1242849166@qq.com
- * @LastEditTime: 2023-05-15 17:16:19
- * @FilePath: /admin/src/pages/login/index.tsx
+ * @LastEditors: ipink 1242849166@qq.com
+ * @LastEditTime: 2023-05-15 22:04:16
+ * @FilePath: /ipink-admin/src/pages/login/index.tsx
  * @Description: 描述
  */
 import { FC } from 'react'
@@ -15,12 +15,12 @@ import ReactCanvasNest from 'react-canvas-nest'
 import { CommonObjectType } from '#/public';
 import style from './login.module.less';
 import Logo from '@/assets/images/logo.png';
-import { selectTheme } from "@/store/modules/public";
+import { getTheme } from "@/store/slices/publicSlice";
 
 
 const LoginForm: FC = () => {
     const navigate = useNavigate();
-    const theme = useSelector(selectTheme);
+    const theme = useSelector(getTheme);
     console.log(theme)
     const floatColor = theme === 'dark' ? '110,65,255' : '24,144,255';
     const { token: { colorBgContainer } } = antdTheme.useToken();
