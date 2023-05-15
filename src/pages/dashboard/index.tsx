@@ -1,9 +1,9 @@
 /*
  * @Author: ipink
  * @Date: 2023-05-13 22:16:17
- * @LastEditors: ipink 1242849166@qq.com
- * @LastEditTime: 2023-05-13 22:19:07
- * @FilePath: /react-admin-main/src/pages/dashboard/index.tsx
+ * @LastEditors: 牛洪法 1242849166@qq.com
+ * @LastEditTime: 2023-05-15 14:36:58
+ * @FilePath: /admin/src/pages/dashboard/index.tsx
  * @Description: 描述
  */
 import type { FormData } from '#/form'
@@ -40,7 +40,7 @@ function Dashboard() {
   return (
    
     <div className='py-10px'>
-      hello world!
+      hello world dashboard!
     </div>
   )
 }

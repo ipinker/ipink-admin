@@ -1,25 +1,25 @@
 @import url("./reset.less");
 
 body {
-  margin: 0;
+    margin: 0;
 }
 
 html,
 body,
 #root {
-  width: 100%;
-  height: 100%;
+    width: 100%;
+    height: 100%;
 }
 
 // react-activation样式
 .ka-wrapper,
 .ka-content {
-  height: 100%;
+    height: 100%;
 }
 
 .echarts {
-  width: 100%;
-  height: 100%;
+    width: 100%;
+    height: 100%;
 }
 
 
@@ -29,12 +29,19 @@ a {
     align-items: center;
 }
 
+.icon {
+    margin: 0 10px;
+}
+
+// flex
 .flex {
     display: flex;
 }
+
 .flexFull {
     flex: 1;
 }
+
 .flexCenter {
     justify-content: center;
     align-items: center;
@@ -43,27 +50,40 @@ a {
 .flexRowCenter {
     justify-content: center;
 }
+
+.flexRowEnd {
+    justify-content: flex-end;
+}
+
 .flexColumnCenter {
     align-items: center;
 }
-.icon {
-    margin: 0 10px;
+
+.flexColumnEnd {
+    align-items: flex-end;
 }
-.center {
+
+.flexCenter {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-&.pL0 {
-    padding-left: 0;
+// img
+.full,
+.imgFull {
+    width: 100%;
+    height: 100%;
 }
-&.pR0 {
-    padding-right: 0;
+.imgFit {
+    max-width: 100%;
+    max-height: 100%;
 }
-&.pT0 {
-    padding-top: 0;
+.imgWidthFix {
+    width: 100%;
+    height: auto;
 }
-&.pB0 {
-    padding-bottom: 0;
+.imgHeightFix {
+    height: 100%;
+    width: auto;
 }

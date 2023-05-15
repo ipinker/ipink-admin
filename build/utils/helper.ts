@@ -4,8 +4,8 @@ type EnvConfigs = Record<string, string>
 
 // env数据
 interface ViteEnv {
-  VITE_SERVER_PORT: number;
-  VITE_PROXY: [string, string][];
+    VITE_SERVER_PORT: number;
+    VITE_PROXY: [string, string][];
 }
 
 /**
@@ -13,19 +13,19 @@ interface ViteEnv {
  * @param envConfigs 
  */
 export function handleEnv(envConfigs: EnvConfigs): ViteEnv {
-  const {
-    VITE_SERVER_PORT,
-    VITE_PROXY
-  } = envConfigs
+    const {
+        VITE_SERVER_PORT,
+        VITE_PROXY
+    } = envConfigs
 
-  const proxy: [string, string][] = VITE_PROXY ? JSON.parse(VITE_PROXY.replace(/'/g, '"')) : []
+    const proxy: [string, string][] = VITE_PROXY ? JSON.parse(VITE_PROXY.replace(/'/g, '"')) : []
 
-  const res: ViteEnv = {
-    VITE_SERVER_PORT: Number(VITE_SERVER_PORT) || 8080,
-    VITE_PROXY: proxy
-  }
+    const res: ViteEnv = {
+        VITE_SERVER_PORT: Number(VITE_SERVER_PORT) || 8080,
+        VITE_PROXY: proxy
+    }
 
-  return res
+    return res
 }
 
 /**
@@ -33,25 +33,25 @@ export function handleEnv(envConfigs: EnvConfigs): ViteEnv {
  * @param id - 标识符
  */
 export function splitJSModules(id: string) {
-  // pnpm兼容
-  const pnpmName = id.includes('.pnpm') ? '.pnpm/' : ''
-  const fileName = `node_modules/${pnpmName}`
+    // pnpm兼容
+    const pnpmName = id.includes('.pnpm') ? '.pnpm/' : ''
+    const fileName = `node_modules/${pnpmName}`
 
-  let result = id
-    .split(fileName)[1]
-    .split('/')[0]
+    let result = id
+        .split(fileName)[1]
+        .split('/')[0]
 
-  if (result.includes('@')) {
-    const first = result.indexOf('@')
-    if (first > 0) {
-      result = result.substring(0, first)
-    } else {
-      const second = result.indexOf('@', 1)
-      result = result.substring(0, second)
+    if (result.includes('@')) {
+        const first = result.indexOf('@')
+        if (first > 0) {
+            result = result.substring(0, first)
+        } else {
+            const second = result.indexOf('@', 1)
+            result = result.substring(0, second)
+        }
     }
-  }
 
-  return result
+    return result
 }
 
 /**
@@ -59,27 +59,27 @@ export function splitJSModules(id: string) {
  * @param id - 标识符
  */
 export function splitPage(id: string) {
-  const fileName = PAGES_PATH
-  const file = id.split(fileName)[1]
-  const categorize = file?.split('/')?.[0] || ''
-  let result = file?.split('/')?.[1] || 'index'
+    const fileName = PAGES_PATH
+    const file = id.split(fileName)[1]
+    const categorize = file?.split('/')?.[0] || ''
+    let result = file?.split('/')?.[1] || 'index'
 
-  if (result.includes('/')) result = result?.split('/')[0] || ''
-  if (result.includes('.tsx')) result = result.substring(0, result.length - 4)
+    if (result.includes('/')) result = result?.split('/')[0] || ''
+    if (result.includes('.tsx')) result = result.substring(0, result.length - 4)
 
-  // 组件
-  if (result === 'components' || result === 'component') {
-    let compName = '/components/'
-    if (id.includes('/component/')) compName = '/component/'
+    // 组件
+    if (result === 'components' || result === 'component') {
+        let compName = '/components/'
+        if (id.includes('/component/')) compName = '/component/'
 
-    let comResult = id.split(compName)[1]
-    if (comResult.includes('/')) comResult = comResult?.split('/')[0] || ''
-    if (comResult.includes('.tsx')) comResult = comResult.substring(0, comResult.length - 4)
+        let comResult = id.split(compName)[1]
+        if (comResult.includes('/')) comResult = comResult?.split('/')[0] || ''
+        if (comResult.includes('.tsx')) comResult = comResult.substring(0, comResult.length - 4)
 
-    return `${PAGE_PREFIX}${categorize}_comp_${comResult}`
-  }
+        return `${PAGE_PREFIX}${categorize}_comp_${comResult}`
+    }
 
-  return `${PAGE_PREFIX}${categorize}_${result}`
+    return `${PAGE_PREFIX}${categorize}_${result}`
 }
 
 /**
@@ -89,11 +89,11 @@ export function splitPage(id: string) {
  * @param start - 从第几位开始查找
  */
 function getRel(html: string, path: string, start = 0) {
-  const index = html.indexOf(path, start)
-  const prevIndex = html.lastIndexOf('rel="', index) + 5
-  const nextIndex = html.indexOf('"', prevIndex)
-  const rel = html.substring(prevIndex, nextIndex)
-  return [rel, index, prevIndex, nextIndex] as const
+    const index = html.indexOf(path, start)
+    const prevIndex = html.lastIndexOf('rel="', index) + 5
+    const nextIndex = html.indexOf('"', prevIndex)
+    const rel = html.substring(prevIndex, nextIndex)
+    return [rel, index, prevIndex, nextIndex] as const
 }
 
 /**
@@ -103,11 +103,11 @@ function getRel(html: string, path: string, start = 0) {
  * @param start - 从第几位开始查找
  */
 function getPath(html: string, path: string, start = 0) {
-  const index = html.indexOf(path, start)
-  const prevIndex = html.lastIndexOf('href="', index) + 6
-  const nextIndex = html.indexOf('"', prevIndex)
-  const result = html.substring(prevIndex, nextIndex)
-  return result
+    const index = html.indexOf(path, start)
+    const prevIndex = html.lastIndexOf('href="', index) + 6
+    const nextIndex = html.indexOf('"', prevIndex)
+    const result = html.substring(prevIndex, nextIndex)
+    return result
 }
 
 /**
@@ -116,25 +116,25 @@ function getPath(html: string, path: string, start = 0) {
  * @param index - 下标
  */
 function delRow(html: string, index: number) {
-  let result = ''
-  let prevLink = html.lastIndexOf('">', index) + 2
-  const nextLink = html.indexOf('">', index) + 2
-  if (prevLink <= 0) prevLink = html.lastIndexOf('<link', index)
+    let result = ''
+    let prevLink = html.lastIndexOf('">', index) + 2
+    const nextLink = html.indexOf('">', index) + 2
+    if (prevLink <= 0) prevLink = html.lastIndexOf('<link', index)
 
-  if (prevLink > 0 && nextLink > 0) {
-    const prev = html.substring(0, prevLink)
-    const next = html.substring(nextLink, html.length)
-    result = `${prev}${next}`
-  }
+    if (prevLink > 0 && nextLink > 0) {
+        const prev = html.substring(0, prevLink)
+        const next = html.substring(nextLink, html.length)
+        result = `${prev}${next}`
+    }
 
-  return [result, prevLink] as const
+    return [result, prevLink] as const
 }
 
 interface LazyProps {
-  html: string;
-  path: string;
-  arr: string[];
-  start?: number;
+    html: string;
+    path: string;
+    arr: string[];
+    start?: number;
 }
 
 /**
@@ -145,30 +145,30 @@ interface LazyProps {
  * @param arr - 返回结果
  */
 export function handleLazyCss({ html, path, start, arr }: LazyProps) {
-  if (html.includes(path)) {
-    if (!start) start = html.indexOf('stylesheet')
+    if (html.includes(path)) {
+        if (!start) start = html.indexOf('stylesheet')
 
-    const currentPath = getPath(html, path, start || 0)
-    const [rel, index] = getRel(html, path, start)
-    let newIndex = html.indexOf(path, index + path.length)
+        const currentPath = getPath(html, path, start || 0)
+        const [rel, index] = getRel(html, path, start)
+        let newIndex = html.indexOf(path, index + path.length)
 
-    if (currentPath.includes('.css')) {
-      arr.push(currentPath)
+        if (currentPath.includes('.css')) {
+            arr.push(currentPath)
+        }
+
+        // 删除对应的css
+        if (rel === 'stylesheet') {
+            const [result, prevLink] = delRow(html, index)
+            html = result
+            newIndex = prevLink
+        }
+
+        // 是否存在下一个相同名字css
+        const props = { html, path, start: newIndex, arr }
+        if (newIndex !== -1) html = handleLazyCss(props)
     }
-    
-    // 删除对应的css
-    if (rel === 'stylesheet') {
-      const [result, prevLink] = delRow(html, index)
-      html = result
-      newIndex = prevLink
-    }
 
-    // 是否存在下一个相同名字css
-    const props = { html, path, start: newIndex, arr }
-    if (newIndex !== -1) html = handleLazyCss(props)
-  }
-
-  return html
+    return html
 }
 
 /**
@@ -179,30 +179,30 @@ export function handleLazyCss({ html, path, start, arr }: LazyProps) {
  * @param arr - 返回结果
  */
 export function handleLazyJs({ html, path, start, arr }: LazyProps) {
-  if (html.includes(path)) {
-    if (!start) start = 0
+    if (html.includes(path)) {
+        if (!start) start = 0
 
-    const currentPath = getPath(html, path, start || 0)
-    const [rel, index] = getRel(html, path, start)
-    let newIndex = html.indexOf(path, index + path.length)
+        const currentPath = getPath(html, path, start || 0)
+        const [rel, index] = getRel(html, path, start)
+        let newIndex = html.indexOf(path, index + path.length)
 
-    if (currentPath.includes('.js')) {
-      arr.push(currentPath)
+        if (currentPath.includes('.js')) {
+            arr.push(currentPath)
+        }
+
+        // 删除对应的js
+        if (rel === 'modulepreload' || rel === 'prefetch' || rel === 'preload') {
+            const [result, prevLink] = delRow(html, index)
+            html = result
+            newIndex = prevLink
+        }
+
+        // 是否存在下一个相同名字js
+        const props = { html, path, start: newIndex, arr }
+        if (newIndex !== -1) html = handleLazyJs(props)
     }
-    
-    // 删除对应的js
-    if (rel === 'modulepreload' || rel === 'prefetch' || rel === 'preload') {
-      const [result, prevLink] = delRow(html, index)
-      html = result
-      newIndex = prevLink
-    }
 
-    // 是否存在下一个相同名字js
-    const props = { html, path, start: newIndex, arr }
-    if (newIndex !== -1) html = handleLazyJs(props)
-  }
-
-  return html
+    return html
 }
 
 /**
@@ -212,21 +212,21 @@ export function handleLazyJs({ html, path, start, arr }: LazyProps) {
  * @param start - 从第几位开始查找
  */
 export function handlePreloadHtml(html: string, path: string, start = 0) {
-  if (html.includes(path)) {
-    const [rel, index, prevIndex, nextIndex] = getRel(html, path, start)
+    if (html.includes(path)) {
+        const [rel, index, prevIndex, nextIndex] = getRel(html, path, start)
 
-    if (rel === 'prefetch') {
-      const prev = html.substring(0, prevIndex)
-      const next = html.substring(nextIndex, html.length)
-      html = `${prev}modulepreload${next}`
+        if (rel === 'prefetch') {
+            const prev = html.substring(0, prevIndex)
+            const next = html.substring(nextIndex, html.length)
+            html = `${prev}modulepreload${next}`
+        }
+
+        // 是否存在下一个相同名字组件
+        const newIndex = html.indexOf(path, index + path.length)
+        if (newIndex !== -1) html = handlePreloadHtml(html, path, newIndex)
     }
 
-    // 是否存在下一个相同名字组件
-    const newIndex = html.indexOf(path, index + path.length)
-    if (newIndex !== -1) html = handlePreloadHtml(html, path, newIndex)
-  }
-
-  return html
+    return html
 }
 
 /**
@@ -235,16 +235,16 @@ export function handlePreloadHtml(html: string, path: string, start = 0) {
  * @param path - 路径
  */
 export function handleEntry(html: string, path: string) {
-  if (html.includes(path)) {
-    const index = html.indexOf(path)
-    const prevIndex = html.lastIndexOf('<script', index)
-    const nextIndex = html.indexOf('</script>', prevIndex) + 9
-    const code = html.substring(prevIndex, nextIndex)
-    const prev = html.substring(0, prevIndex)
-    const next = html.substring(nextIndex, html.length)
-    html = `${prev}${next}`
-    return [html, code] as const
-  }
+    if (html.includes(path)) {
+        const index = html.indexOf(path)
+        const prevIndex = html.lastIndexOf('<script', index)
+        const nextIndex = html.indexOf('</script>', prevIndex) + 9
+        const code = html.substring(prevIndex, nextIndex)
+        const prev = html.substring(0, prevIndex)
+        const next = html.substring(nextIndex, html.length)
+        html = `${prev}${next}`
+        return [html, code] as const
+    }
 
-  return [html, '']
+    return [html, '']
 }

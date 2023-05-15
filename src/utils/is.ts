@@ -1,9 +1,9 @@
 /*
  * @Author: ipink
  * @Date: 2023-05-11 22:20:37
- * @LastEditors: ipink 1242849166@qq.com
- * @LastEditTime: 2023-05-13 22:06:52
- * @FilePath: /react-admin-main/src/utils/is.ts
+ * @LastEditors: 牛洪法 1242849166@qq.com
+ * @LastEditTime: 2023-05-15 11:07:16
+ * @FilePath: /admin/src/utils/is.ts
  * @Description: 描述
  */
 /**
@@ -50,3 +50,10 @@ export const isJson = (str: string): boolean => {
   }
   return jsonObj !== null && typeof jsonObj === "object";
 };
+
+export const isPhone = (): boolean => {
+    if(window.matchMedia){
+        return window.matchMedia("(max-width:500px)").matches;
+    }
+    return window.innerWidth <= 500;
+}

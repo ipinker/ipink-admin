@@ -1,14 +1,15 @@
 /*
  * @Author: ipink
  * @Date: 2023-05-11 22:20:37
- * @LastEditors: ipink 1242849166@qq.com
- * @LastEditTime: 2023-05-14 13:22:51
- * @FilePath: /react-admin-main/types/public.d.ts
+ * @LastEditors: 牛洪法 1242849166@qq.com
+ * @LastEditTime: 2023-05-15 16:14:32
+ * @FilePath: /admin/types/public.d.ts
  * @Description: 描述
  */
 import type { SubMenuType } from 'antd/lib/menu/hooks/useItems'
 import type { ColumnsType } from 'antd/lib/table'
 import type { Dayjs } from 'dayjs'
+import type { MenuProps } from 'antd';
 
 // 区间值
 type EventValue<T> = T | null
@@ -60,13 +61,14 @@ export interface PaginationData {
 }
 
 // 侧边菜单
-export interface SideMenu extends Omit<SubMenuType, 'children' | 'label' | 'icon'> {
+export interface SideMenu extends MenuProps['item'] {
   label: string;
   key: string;
-  icon?: React.ReactNode | string;
+  icon?: React.ReactNode | React.Element | string;
   rule?: string; // 路由权限
   nav?: string[]; // 面包屑路径
   children?: SideMenu[];
+  type?: string
 }
 
 // 页面权限

@@ -1,9 +1,9 @@
 /*
  * @Author: ipink
  * @Date: 2023-05-11 22:20:37
- * @LastEditors: ipink 1242849166@qq.com
- * @LastEditTime: 2023-05-14 11:00:00
- * @FilePath: /react-admin-main/src/router/App.tsx
+ * @LastEditors: 牛洪法 1242849166@qq.com
+ * @LastEditTime: 2023-05-15 17:06:31
+ * @FilePath: /admin/src/router/App.tsx
  * @Description: 描述
  */
 import type { RouteObject } from "react-router-dom"
@@ -25,7 +25,6 @@ const layoutRoutes = (routes: RouteObject[]): RouteObject[] => {
 
     return layouts
 }
-
 const newRoutes: RouteObject[] = [
     {
         path: "login",
@@ -36,12 +35,8 @@ const newRoutes: RouteObject[] = [
         element: <Layout />,
         children: layoutRoutes(routes)
     }
-    // {
-    //   path: "",
-    //   element: <Layout />,
-    //   children: layouts
-    // }
-]
+];
+console.log(newRoutes)
 
 function App() {
     return (

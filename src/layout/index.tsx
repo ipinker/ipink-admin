@@ -1,14 +1,14 @@
 /*
  * @Author: ipink
  * @Date: 2023-05-14 10:46:47
- * @LastEditors: ipink 1242849166@qq.com
- * @LastEditTime: 2023-05-14 20:52:26
- * @FilePath: /ipink-admin-test01/src/layout/index.tsx
+ * @LastEditors: 牛洪法 1242849166@qq.com
+ * @LastEditTime: 2023-05-15 17:03:11
+ * @FilePath: /admin/src/layout/index.tsx
  * @Description: 描述
  */
 import { FC } from 'react';
-import { Layout } from 'antd';
-import { useLocation } from 'react-router-dom'
+import { Layout, theme } from 'antd';
+import { Outlet, useLocation } from 'react-router-dom'
 import classNames from 'classnames'
 
 import { menuModeType, selectCollapsed, selectMenuMode } from "@/store/modules/public";
@@ -24,6 +24,7 @@ const LayoutComponent: FC = () => {
     const { pathname } = useLocation();
     const menuMode: menuModeType = useSelector(selectMenuMode);
     const collapsed: boolean = useSelector(selectCollapsed);
+    const { token: { colorWhite } } = theme.useToken();
 
     return (
         <Layout
@@ -38,15 +39,9 @@ const LayoutComponent: FC = () => {
                     [styles.horizontal]: menuMode !== 'vertical'
                 })}
             >
-                <Header />
-                <Content
-                    style={{
-                        margin: '24px 16px',
-                        padding: 24,
-                        minHeight: 280
-                    }}
-                >
-                    Content
+                <Header/>
+                <Content className={ styles.mainContent } style={{background: colorWhite}}>
+                    <Outlet />
                 </Content>
             </Layout>
         </Layout>

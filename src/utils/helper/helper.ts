@@ -1,6 +1,6 @@
 import type { AllTypeData, ArrayData } from '#/public'
-import type { Constant } from './constants'
-import { isJson } from './is'
+import type { Constant } from '../constants'
+import { isJson } from '../is'
 
 /**
  * 首字母大写

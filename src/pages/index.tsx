@@ -1,9 +1,9 @@
 /*
  * @Author: ipink
  * @Date: 2023-05-11 22:20:37
- * @LastEditors: ipink 1242849166@qq.com
- * @LastEditTime: 2023-05-13 21:59:21
- * @FilePath: /react-admin-main/src/pages/index.tsx
+ * @LastEditors: 牛洪法 1242849166@qq.com
+ * @LastEditTime: 2023-05-15 17:14:05
+ * @FilePath: /admin/src/pages/index.tsx
  * @Description: 描述
  */
 import { useEffect } from 'react'
@@ -19,11 +19,11 @@ function Page() {
   }, [token])
   
   return (
-    <div className='flex justify-center'>
+    <div className='full flex flexCenter'>
       <img
         src={Image}
         alt="Image"
-        className='w-980px h-full container'
+        className='imgFit'
       />
     </div>
   )

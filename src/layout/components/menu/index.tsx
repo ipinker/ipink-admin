@@ -1,17 +1,15 @@
 /*
  * @Author: ipink
  * @Date: 2023-05-14 10:46:47
- * @LastEditors: ipink 1242849166@qq.com
- * @LastEditTime: 2023-05-14 22:05:20
- * @FilePath: /ipink-admin-test01/src/layout/components/menu/index.tsx
+ * @LastEditors: 牛洪法 1242849166@qq.com
+ * @LastEditTime: 2023-05-15 16:31:58
+ * @FilePath: /admin/src/layout/components/menu/index.tsx
  * @Description: 描述
  */
-import { FC, Key, ReactNode, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom'
+import { FC, ReactElement, useState } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom'
 import {
-    AppstoreOutlined,
-    MailOutlined,
-    SettingOutlined
+    BarsOutlined
 } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { Layout, Menu, theme as antdTheme } from 'antd';
@@ -20,52 +18,22 @@ import logo from '@/assets/images/logo.png'
 import { menuModeType, selectCollapsed, selectMenuMode, selectTheme } from "@/store/modules/public";
 import './menu.module.less';
 import styles from './menu.module.less';
-
-type MenuItem = Required<MenuProps>['items'][number];
+import { isPhone } from '@/utils/is';
+import { defaultMenus } from "@/menus";
 
 const { Sider, Header } = Layout;
 
-function getItem(
-    label: ReactNode,
-    key: Key,
-    icon?: ReactNode,
-    children?: MenuItem[],
-    type?: 'group',
-): MenuItem {
-    return {
-        key,
-        icon,
-        children,
-        label,
-        type,
-    } as MenuItem;
-}
 
-
-const items: MenuProps['items'] = [
-    getItem('Navigation One', 'sub1', <MailOutlined />, [
-        getItem('Item 1', 'g1', null, [getItem('Option 1', '1'), getItem('Option 2', '2')], 'group'),
-        getItem('Item 2', 'g2', null, [getItem('Option 3', '3'), getItem('Option 4', '4')], 'group'),
-    ]),
-
-    getItem('Navigation Two', 'sub2', <AppstoreOutlined />, [
-        getItem('Option 5', '5'),
-        getItem('Option 6', '6'),
-        getItem('Submenu', 'sub3', null, [getItem('Option 7', '7'), getItem('Option 8', '8')]),
-    ]),
-
-    getItem('Navigation Three', 'sub4', <SettingOutlined />, [
-        getItem('Option 9', '9'),
-        getItem('Option 10', '10'),
-        getItem('Option 11', '11'),
-        getItem('Option 12', '12'),
-    ])
-];
+const items: MenuProps['items'] = isPhone() ? 
+    [{label: '', key: 'menu', icon: <BarsOutlined />, children: defaultMenus}] :
+    defaultMenus
+;
 
 
 const MenuComponent: FC = () => {
     const { pathname } = useLocation();
     console.log(pathname)
+    const navigate = useNavigate();
     const menuMode: menuModeType = useSelector(selectMenuMode);
     const collapsed: boolean = useSelector(selectCollapsed);
     const theme = useSelector(selectTheme)
@@ -80,12 +48,12 @@ const MenuComponent: FC = () => {
     // }, [higherMenuKey, pathname])
 
     const onClick: MenuProps['onClick'] = ({ key }) => {
-        console.log('click ', key);
-        setCurrent(key)
+        setCurrent(key);
+        navigate(key);
     };
 
-    const LogLink = (options: { vertical?: boolean }) => {
-        return (
+    const LogLink = (options: { vertical?: boolean }): ReactElement => {
+        return !isPhone() && (
             <Link 
                 className={ `${styles.logoContainer} columnCenter ${ options.vertical? styles.vertical:""}`} 
                 to={{ pathname: '/' }}
@@ -94,12 +62,17 @@ const MenuComponent: FC = () => {
                     <img alt="logo" src={logo} width="32" />
                 </div>
             </Link>
-        );
+        ) || (<></>);
     };
     // 横向 Menu
-    if (menuMode === 'horizontal') {
+    if (isPhone() || menuMode === 'horizontal') {
         return (
-            <Header style={{background:colorBgContainer}} className="flex columnCenter header">
+            <Header 
+                style={{
+                    background:colorBgContainer
+                }} 
+                className={`flex columnCenter header ${isPhone() && styles.phone }`}
+            >
                 <LogLink />
                 <div className={styles.autoWidthMenu}>
                     <Menu

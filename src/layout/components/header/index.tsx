@@ -1,9 +1,9 @@
 /*
  * @Author: ipink
  * @Date: 2023-05-14 10:46:56
- * @LastEditors: ipink 1242849166@qq.com
- * @LastEditTime: 2023-05-14 22:34:32
- * @FilePath: /ipink-admin-test01/src/layout/components/header/index.tsx
+ * @LastEditors: 牛洪法 1242849166@qq.com
+ * @LastEditTime: 2023-05-15 12:49:06
+ * @FilePath: /admin/src/layout/components/header/index.tsx
  * @Description: 描述
  */
 import { useState, useEffect, FC } from 'react'
@@ -29,6 +29,7 @@ import BreadcrumbComponent from "../breadcrumb"
 
 import classNames from 'classnames'
 import style from './header.module.less'
+import { isPhone } from '@/utils/is'
 
 const { Header } = Layout;
 
@@ -147,11 +148,13 @@ const HeaderComponent: FC = () => {
             style={{ padding: 0, background: colorBgContainer }}
             className={classNames(style.header, {
                 [style.horizontal]: isHorizontal,
+                [style.phone]: isPhone(),
                 [style.dark]: theme === 'dark',
                 [style.headerFull]: !isHorizontal
             })}
         >
-            {!isHorizontal && (
+            {/* 非手机端 & 左右分栏 显示 */}
+            {!isPhone() && !isHorizontal && (
                 <>
                     <div className={style.toggleMenu} onClick={toggle}>
                         {collapsed ? (
@@ -162,16 +165,17 @@ const HeaderComponent: FC = () => {
                     </div>
                     {/* 面包屑 */}
                     <BreadcrumbComponent />
-                    <div className='flexFull'></div>
+                    <div className='fGrow'></div>
                 </>
             )}
 
-            {/* 右上角 */}
-            <Dropdown className={`fr ${style.content}`} menu={{ items: settings }}>
+            {/* 右上角 切换菜单模式,  仅在非手机端显示 */}
+            { !isPhone() && <Dropdown className={`fr ${style.content}`} menu={{ items: settings }}>
                 <span className={style.preference}>
                     <Icon icon="emojione:gear" color={colorText} />
                 </span>
             </Dropdown>
+            }
             <div className={`fr ${style.themeSwitchWrapper}`}>
                 <div
                     className={`${style.themeSwitch} ${!isDefaultTheme && style.themeSwitchDark}`}
